@@ -11,7 +11,7 @@
         ul {
             list-style-type: none;
         }
- 
+
         li {
             cursor: pointer;
             width: 800px;
@@ -24,29 +24,40 @@
             for (var j, x, i = o.length; i; j = Math.floor(Math.random() * i), x = o[--i], o[i] = o[j], o[j] = x);
             return o;
         }
+        function getHashFunction() {
+            var obj = [];
+            function hash(s) {
+                if(typeof obj[s] == "undefined") {
+                    obj[s] = Math.random().toString(36).substr(2);
+                }
+                return obj[s];
+            }
+            return hash;
+        }
     </script>
     <script type="text/javascript">
         hljs.initHighlightingOnLoad();
         $(function () {
+            var hash = getHashFunction();
             var wrap = $('#code_puzzle');
             var lines = wrap.find('li');
             for(var i=0; i<lines.length; i++) {
-                $(lines[i]).attr('id', i);
+                $(lines[i]).attr('id', hash(i.toString()));
             }
             lines = shuffle(lines);
             wrap.html('');
             lines.appendTo(wrap);
             wrap.sortable({
-              deactivate: function( event, ui ) {
-                  var lines = wrap.find('li');
-                  var win = true;
-                  for(var i=0; i<lines.length; i++) {
-                        win = win && ($(lines[i]).attr('id') == i.toString());
-                  }
-                  if(win) {
-                      alert('You win!');
-                  }
-              }
+                deactivate: function( event, ui ) {
+                    var lines = wrap.find('li');
+                    var win = true;
+                    for(var i=0; i<lines.length; i++) {
+                        win = win && ($(lines[i]).attr('id') == hash(i.toString()));
+                    }
+                    if(win) {
+                        alert('You win!');
+                    }
+                }
             });
         });
     </script>
