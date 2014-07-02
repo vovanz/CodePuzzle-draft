@@ -24,6 +24,20 @@
             for (var j, x, i = o.length; i; j = Math.floor(Math.random() * i), x = o[--i], o[i] = o[j], o[j] = x);
             return o;
         }
+        function () {
+            var billion = 1000*1000*1000;
+            var rnd = Math.round(Math.random()*billion);
+            String.prototype.hashCode = function(){
+            	var hash = rnd;
+            	if (this.length == 0) return hash;
+            	for (i = 0; i < this.length; i++) {
+            		char = this.charCodeAt(i);
+            		hash = ((hash<<5)-hash)+char;
+            		hash = hash & hash; // Convert to 32bit integer
+            	}
+            	return hash;
+            }
+        }();
     </script>
     <script type="text/javascript">
         hljs.initHighlightingOnLoad();
@@ -31,7 +45,7 @@
             var wrap = $('#code_puzzle');
             var lines = wrap.find('li');
             for(var i=0; i<lines.length; i++) {
-                $(lines[i]).attr('id', i);
+                $(lines[i]).attr('id', i.hashCode());
             }
             lines = shuffle(lines);
             wrap.html('');
@@ -41,7 +55,7 @@
                   var lines = wrap.find('li');
                   var win = true;
                   for(var i=0; i<lines.length; i++) {
-                        win = win && ($(lines[i]).attr('id') == i.toString());
+                        win = win && ($(lines[i]).attr('id').hashCode() == i.toString().hashCode());
                   }
                   if(win) {
                       alert('You win!');
