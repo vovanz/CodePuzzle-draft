@@ -46,7 +46,7 @@
             var wrap = $('#code_puzzle');
             var lines = wrap.find('li');
             for(var i=0; i<lines.length; i++) {
-                $(lines[i]).attr('id', i.hashCode());
+                $(lines[i]).attr('id', i.toString().hashCode());
             }
             lines = shuffle(lines);
             wrap.html('');
