@@ -16,6 +16,10 @@
             cursor: pointer;
             width: 800px;
         }
+        
+        #task {
+            margin-left: 42px;
+        }
     </style>
     <script type="text/javascript">
         //+ Jonas Raoni Soares Silva
@@ -25,7 +29,7 @@
             return o;
         }
         function getHashFunction() {
-            var obj = [];
+            var obj = {};
             function hash(s) {
                 if(typeof obj[s] == "undefined") {
                     obj[s] = Math.random().toString(36).substr(2);
