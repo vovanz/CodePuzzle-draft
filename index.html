@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>CodePuzzle</title>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/jquery-ui.min.js"></script>
+    <link rel="stylesheet" href="http://yandex.st/highlightjs/8.0/styles/default.min.css">
+    <script src="http://yandex.st/highlightjs/8.0/highlight.min.js"></script>
+    <style type="text/css">
+        ul {
+            list-style-type: none;
+        }
+ 
+        li {
+            cursor: pointer;
+        }
+    </style>
+    <script type="text/javascript">
+        //+ Jonas Raoni Soares Silva
+        //@ http://jsfromhell.com/array/shuffle [v1.0]
+        function shuffle(o) { //v1.0
+            for (var j, x, i = o.length; i; j = Math.floor(Math.random() * i), x = o[--i], o[i] = o[j], o[j] = x);
+            return o;
+        }
+    </script>
+    <script type="text/javascript">
+        hljs.initHighlightingOnLoad();
+        $(function () {
+            var wrap = $('#code_puzzle');
+            var lines = wrap.find('li');
+            for(var i=0; i<lines.length; i++) {
+                $(lines[i]).attr('id', i);
+            }
+            lines = shuffle(lines);
+            wrap.html('');
+            lines.appendTo(wrap);
+            wrap.sortable({
+              deactivate: function( event, ui ) {
+                  var lines = wrap.find('li');
+                  var win = true;
+                  for(var i=0; i<lines.length; i++) {
+                        win = win && ($(lines[i]).attr('id') == i.toString());
+                  }
+                  if(win) {
+                      alert('You win!');
+                  }
+              }
+            });
+        });
+    </script>
+</head>
+<body>
+<p id="task">Выведите 100 первых чисел Фибоначчи</p>
+<ul id="code_puzzle">
+    <li><pre><code>def fibonacci(max):</code></pre></li>
+    <li><pre><code>    a, b = 0, 1</code></pre></li>
+    <li><pre><code>    while a < max:</code></pre></li>
+    <li><pre><code>        yield a</code></pre></li>
+    <li><pre><code>        a, b = b, a + b</code></pre></li>
+    <li><pre><code>for n in fibonacci(100):</code></pre></li>
+    <li><pre><code>    print (n)</code></pre></li>
+</ul>
+</body>
+</html>
